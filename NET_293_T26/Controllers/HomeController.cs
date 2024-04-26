@@ -20,11 +20,7 @@ namespace NET_293_T26.Controllers
         public IActionResult Index()
         {
             var rows = _context.ToDoTasks.ToList();
-            return View(rows); //truy?n d? li?u v? View
-        }
-        public IActionResult Index1()
-        {
-            return View();
+            return View(rows);
         }
 
         public IActionResult Privacy()

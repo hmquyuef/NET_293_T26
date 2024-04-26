@@ -1,0 +1,123 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>To do List</h1>
+
+<section>
+    <div class="d-flex justify-content-end mb-3">
+        <a href="#" class="btn btn-primary shadow rounded" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Thêm nhiệm vụ</a>
+    </div>
+    <hr />
+    <div class="d-flex gap-3">
+        <aside class="w-25 shadow rounded">
+            <h4 class="text-center">Trạng thái nhiệm vụ</h4>
+            <div id="typetask" class="px-3 py-2">
+                <div class="d-flex justify-content-between form-check text-primary task">
+                    <div class="w-100">
+                        <input class="form-check-input" type="radio" name="task" value="0" id="tatca" checked>
+                        <label class="form-check-label w-100" for="tatca">
+                            Tất cả
+                        </label>
+                    </div>
+                    <label class="form-check-label" id="label-tatca" for="tatca">0</label>
+                </div>
+                <div class="d-flex justify-content-between form-check text-success task">
+                    <div class="w-100">
+                        <input class="form-check-input" type="radio" name="task" value="1" id="hoanthanh">
+                        <label class="form-check-label w-100" for="hoanthanh">
+                            Hoàn thành
+                        </label>
+                    </div>
+                    <label class="form-check-label" id="label-hoanthanh" for="hoanthanh">0</label>
+                </div>
+                <div class="d-flex justify-content-between form-check text-warning task">
+                    <div class="w-100">
+                        <input class="form-check-input" type="radio" name="task" value="2" id="danglam">
+                        <label class="form-check-label w-100" for="danglam">
+                            Đang làm
+                        </label>
+                    </div>
+                    <label class="form-check-label" id="label-danglam" for="danglam">0</label>
+                </div>
+                <div class="d-flex justify-content-between form-check text-danger task">
+                    <div class="w-100">
+                        <input class="form-check-input" type="radio" name="task" value="3" id="huybo">
+                        <label class="form-check-label w-100" for="huybo">
+                            Hủy bỏ
+                        </label>
+                    </div>
+                    <label class="form-check-label" id="label-huybo" for="huybo">0</label>
+                </div>
+            </div>
+        </aside>
+
+        <article class="d-grid w-75">
+            @* list item *@
+            <div id="listtask" class="row row-cols-4">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Name</th>
+                            <th>Prio</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listtasks">
+                        <tr>
+                            <td colspan="5" class="text-center">No data</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </article>
+    </div>
+</section>
+<section>
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <h5 class="modal-title text-white" id="staticBackdropLabel">Thêm nhiệm vụ</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" id="idcard" value="" hidden />
+                    <div class="mb-3">
+                        <label for="tennhiemvu" class="form-label fw-bold">Tên nhiệm vụ</label>
+                        <input type="text" class="form-control" id="tennhiemvu" value="" placeholder="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="uutien" class="form-label fw-bold">Độ ưu tiên</label>
+                        <input type="number" class="form-control" id="uutien" value="" placeholder="">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Trạng thái</label>
+                        <select class="form-select" id="trangthai" aria-label="Trạng thái">
+                            <option selected value="1">Hoàn thành</option>
+                            <option value="2">Đang làm</option>
+                            <option value="3">Hủy bỏ</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="mota" class="form-label fw-bold">Mô tả</label>
+                        <textarea class="form-control" id="mota" value="" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="javascript:void()" class="btn btn-outline-secondary" data-bs-dismiss="modal">Hủy bỏ</a>
+                    <a id="addtask" class="btn btn-primary">Thêm nhiệm vụ</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@section Scripts{
+	<script src="~/js/task.js"></script>
+}
