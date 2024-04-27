@@ -10,8 +10,8 @@
         <a href="#" class="btn btn-primary shadow rounded" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Thêm nhiệm vụ</a>
     </div>
     <hr />
-    <div class="d-flex gap-3">
-        <aside class="w-25 shadow rounded">
+    <div class="d-flex justify-content-between gap-4">
+        <aside class="w-25 shadow rounded" style="height: fit-content;">
             <h4 class="text-center">Trạng thái nhiệm vụ</h4>
             <div id="typetask" class="px-3 py-2">
                 <div class="d-flex justify-content-between form-check text-primary task">
@@ -53,12 +53,12 @@
             </div>
         </aside>
 
-        <article class="d-grid w-75">
+        <article class="d-grid flex-grow-1">
             @* list item *@
-            <div id="listtask" class="row row-cols-4">
-                <table class="table">
+            <div id="listtask" class="bg-white px-3 py-2 shadow rounded">
+                <table class="table table-bordered">
                     <thead>
-                        <tr>
+                        <tr class="text-center">
                             <th>STT</th>
                             <th>Name</th>
                             <th>Prio</th>
@@ -98,7 +98,7 @@
                     <div class="mb-3">
                         <label class="form-label fw-bold">Trạng thái</label>
                         <select class="form-select" id="trangthai" aria-label="Trạng thái">
-                            <option selected value="1">Hoàn thành</option>
+                            <option value="1">Hoàn thành</option>
                             <option value="2">Đang làm</option>
                             <option value="3">Hủy bỏ</option>
                         </select>

@@ -59,7 +59,7 @@ namespace NET_293_T26.Controllers
 			}
 			item.Name = ten;
 			item.Priority = uutien.ToString();
-			item.Status = trangthai == 1 ? "Hoan thanh" : trangthai == 2 ? "Dang lam" : "Huy bo";
+			item.Status = trangthai.ToString();
 			item.Note = mota;
 			_context.ToDoTasks.Update(item);
 			await _context.SaveChangesAsync();
