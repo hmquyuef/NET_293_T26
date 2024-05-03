@@ -9,18 +9,15 @@ namespace NET_293_T26.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        private readonly ToDoTasksContext _context;
 
-        public HomeController(ILogger<HomeController> logger, ToDoTasksContext context)
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            _context = context;
         }
 
         public IActionResult Index()
         {
-            var rows = _context.ToDoTasks.ToList();
-            return View(rows);
+            return View();
         }
 
         public IActionResult Privacy()

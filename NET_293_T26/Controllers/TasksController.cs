@@ -3,27 +3,25 @@ using NET_293_T26.Models.Entities;
 
 namespace NET_293_T26.Controllers
 {
-    public class TasksController : Controller
-    {
-        private readonly ToDoTasksContext _context;
-        public TasksController(ToDoTasksContext context)
+	public class TasksController : Controller
+	{
+		private readonly ToDoTasksContext _context;
+		public TasksController(ToDoTasksContext context)
 		{
 			_context = context;
 		}
 
 		public IActionResult Index()
-        {
-            return View();
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> GetListTask()
 		{
-            var items = _context.ToDoTasks.ToList();
+			return View();
+		}
+
+		public async Task<IActionResult> GetListTask()
+		{
+			var items = _context.ToDoTasks.ToList();
 			return Ok(items);
 		}
 
-		[HttpGet]
 		public async Task<IActionResult> GetTaskById(Guid id)
 		{
 			var item = _context.ToDoTasks.FirstOrDefault(x => x.Id == id);
@@ -31,21 +29,21 @@ namespace NET_293_T26.Controllers
 		}
 
 		[HttpPost]
-        public async Task<IActionResult> AddTask(string ten, int uutien, int trangthai, string mota)
-        {
-            //1 - Hoan thanh; 2 - Dang lam; 3 - Huy bo
-            var item = new ToDoTask
-            {
-                Id = Guid.NewGuid(),
-                Name = ten,
-                Priority = uutien.ToString(),
-                Status = trangthai == 1 ? "Hoan thanh" : trangthai == 2 ? "Dang lam" : "Huy bo",
+		public async Task<IActionResult> AddTask(string ten, int uutien, int trangthai, string mota)
+		{
+			//1 - Hoan thanh; 2 - Dang lam; 3 - Huy bo
+			var item = new ToDoTask
+			{
+				Id = Guid.NewGuid(),
+				Name = ten,
+				Priority = uutien.ToString(),
+				Status = trangthai == 1 ? "Hoan thanh" : trangthai == 2 ? "Dang lam" : "Huy bo",
 				Note = mota,
-                IsActive = true
-            };
-            _context.ToDoTasks.Add(item);
+				IsActive = true
+			};
+			_context.ToDoTasks.Add(item);
 			await _context.SaveChangesAsync();
-            return Ok(item);
+			return Ok(item);
 		}
 
 		[HttpPut]
