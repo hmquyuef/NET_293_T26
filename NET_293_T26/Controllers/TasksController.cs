@@ -29,7 +29,7 @@ namespace NET_293_T26.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> AddTask(string ten, int uutien, int trangthai, string mota)
+		public async Task<IActionResult> AddTask(string ten, int uutien, string trangthai, string mota)
 		{
 			//1 - Hoan thanh; 2 - Dang lam; 3 - Huy bo
 			var item = new ToDoTask
@@ -37,7 +37,7 @@ namespace NET_293_T26.Controllers
 				Id = Guid.NewGuid(),
 				Name = ten,
 				Priority = uutien.ToString(),
-				Status = trangthai == 1 ? "Hoan thanh" : trangthai == 2 ? "Dang lam" : "Huy bo",
+				Status = trangthai,
 				Note = mota,
 				IsActive = true
 			};

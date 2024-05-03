@@ -1,5 +1,5 @@
 ﻿$(document).ready(() => {
-    RenderListTask();
+    RenderListTask('0');
 })
 
 $('#addtask').click(function () {
@@ -23,8 +23,9 @@ $('#addtask').click(function () {
             },
             success: function (data) {
                 $('#staticBackdrop').modal('hide');
-                RenderListTask();
-
+                var value = $('input[type="radio"]:checked').val();
+                console.log("VALUE:", value);
+                RenderListTask(value);
             },
             error: function () {
                 alert('Them that bai');
@@ -44,7 +45,6 @@ $('#addtask').click(function () {
             success: function (data) {
                 $('#staticBackdrop').modal('hide');
                 RenderListTask();
-
             },
             error: function () {
                 alert('Them that bai');
@@ -53,26 +53,32 @@ $('#addtask').click(function () {
     }
 })
 
-function RenderListTask() {
+function RenderListTask(trangthai) {
+    console.log("TRANG THAI:", trangthai)
     $('#listtasks').empty();
     $.ajax({
         url: '/Tasks/GetListTask',
         type: 'GET',
         success: function (data) {
             console.log("DATA RESULT:", data)
-            data.map((item, index) => {
-                $('#listtasks').append(`
-                <tr>
-                    <td class="align-middle text-center">${index + 1}</td>
-                    <td class="align-middle">${item.name}</td>
-                    <td class="align-middle text-center">${item.priority}</td>
-                    <td class="align-middle text-center ${item.status == "1" ? "text-primary" : item.status == "2" ? "text-warning": "text-danger"}">${item.status == "1" ? "Hoàn thành" : item.status == "2" ? "Đang làm" : "Hủy bỏ"}</td>
-                    <td class="text-center">
-                        <a class="btn btn-primary" href="javascript:EditTask('${item.id}')"><i class='bx bx-edit' ></i></a>
-                        <a class="btn btn-danger" href="javascript:DeleteTask('${item.id}')"><i class='bx bx-trash-alt'></i></a>
-                    </td>
-                    </tr>`)
-            })
+            if (data.length > 0) {
+                var temp = data.filter(item => item.status == trangthai || trangthai == '0');
+                temp.map((item, index) => {
+                    $('#listtasks').append(`
+                    <tr>
+                        <td class="align-middle text-center">${index + 1}</td>
+                        <td class="align-middle">${item.Name}</td>
+                        <td class="align-middle text-center">${item.priority}</td>
+                        <td class="align-middle text-center ${item.status == "1" ? "text-primary" : item.status == "2" ? "text-warning" : "text-danger"}">${item.status == "1" ? "Hoàn thành" : item.status == "2" ? "Đang làm" : "Hủy bỏ"}</td>
+                        <td class="text-center">
+                            <a class="btn btn-primary" href="javascript:EditTask('${item.id}')"><i class='bx bx-edit' ></i></a>
+                            <a class="btn btn-danger" href="javascript:DeleteTask('${item.id}')"><i class='bx bx-trash-alt'></i></a>
+                        </td>
+                    </tr>`);
+                });
+            } else {
+                $('#listtasks').append(`<tr><td class="text-center" colspan="5">No data</td></tr>`);
+            }
         }
     });
  }
@@ -104,7 +110,8 @@ function DeleteTask(id) {
         url: '/Tasks/DeleteTask/' + id,
         type: 'DELETE',
         success: function (data) {
-            RenderListTask();
+            var value = $('input[type="radio"]:checked').val();
+            RenderListTask(value);
         },
         error: function () {
             alert('Xoa that bai');
@@ -112,4 +119,9 @@ function DeleteTask(id) {
     });
 }
 
-
+//xử lý sự kiện cho các radio trả về giá trị value
+$('input[type="radio"]').change(function () {
+    var value = $(this).val();
+    console.log(value);
+    RenderListTask(value);
+})
